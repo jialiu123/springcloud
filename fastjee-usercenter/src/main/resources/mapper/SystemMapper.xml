@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastjee.usercenter.mapper.SystemMapper">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <resultMap id="ResultMapWithSystem" type="com.fastjee.common.entity.System">
+        <id column="System_id" property="id" />
+        <result column="System_code" property="code" /><!--//.系统编码-->
+        <result column="System_name" property="name" /><!--//.系统名称-->
+        <result column="System_status" property="status" /><!--//.状态(0启用,1禁用)-->
+        <result column="System_createAt" property="createAt" />
+        <result column="System_createDate" property="createDate" />
+        <result column="System_modifyAt" property="modifyAt" />
+        <result column="System_modifyDate" property="modifyDate" />
+    </resultMap>
+    <sql id="SqlWithSystemSelectAll">
+        SELECT
+            System.id AS System_id,
+            System.code AS System_code,
+            System.name AS System_name,
+            System.status AS System_status,
+            System.createAt AS System_createAt,
+            System.createDate AS System_createDate,
+            System.modifyAt AS System_modifyAt,
+            System.modifyDate AS System_modifyDate
+        FROM tb_system AS System
+    </sql>
+</mapper>

@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: fastjee-gateway
+  # 从配置中心拉取配置, 其他配置文件都在git仓库上
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        service-id: fastjee-config
+        enabled: true
+      label: master
+      profile: ${spring.profiles.active}
+      name: ${spring.application.name}
+
+
+# 注册到注册中心
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  client:
+    serviceUrl:
+      defaultZone: http://fastjee:123456@127.0.0.1:5000/eureka/

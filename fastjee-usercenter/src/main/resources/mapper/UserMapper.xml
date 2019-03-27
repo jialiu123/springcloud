@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2018 吴汶泽(wenzewoo@gmail.com)
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastjee.usercenter.mapper.UserMapper">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <resultMap id="ResultMapWithUser" type="com.fastjee.common.entity.User">
+        <id column="User_id" property="id" />
+        <result column="User_nickname" property="nickname" /><!--//.昵称-->
+        <result column="User_email" property="email" /><!--//.邮箱地址-->
+        <result column="User_mobile" property="mobile" /><!--//.手机号-->
+        <result column="User_username" property="username" /><!--//.用户名-->
+        <result column="User_password" property="password" /><!--//.密码-->
+        <result column="User_description" property="description" /><!--//.描述信息-->
+        <result column="User_status" property="status" /><!--//.用户状态(0启用,1禁用)-->
+        <result column="User_avatar" property="avatar" /><!--//.用户头像-->
+        <result column="User_sectionId" property="sectionId"/><!--//.所属部门-->
+        <result column="User_createAt" property="createAt" />
+        <result column="User_createDate" property="createDate" />
+        <result column="User_modifyAt" property="modifyAt" />
+        <result column="User_modifyDate" property="modifyDate" />
+        <collection property="roleSet" resultMap="com.fastjee.usercenter.mapper.RoleMapper.ResultMapWithRole" />
+    </resultMap>
+    <sql id="SqlWithUserSelectAll">
+        SELECT
+            User.id AS User_id,
+            User.nickname AS User_nickname,
+            User.email AS User_email,
+            User.username AS User_username,
+            User.password AS User_password,
+            User.description AS User_description,
+            User.status AS User_status,
+            User.avatar AS User_avatar,
+            User.sectionId AS User_sectionId,
+            User.createAt AS User_createAt,
+            User.createDate AS User_createDate,
+            User.modifyAt AS User_modifyAt,
+            User.modifyDate AS User_modifyDate,
+            Role.id AS Role_id,
+            Role.code AS Role_code,
+            Role.name AS Role_name,
+            Role.priority AS Role_priority,
+            Role.description AS Role_description,
+            Role.createAt AS Role_createAt,
+            Role.createDate AS Role_createDate,
+            Role.modifyAt AS Role_modifyAt,
+            Role.modifyDate AS Role_modifyDate
+        FROM tb_user AS User
+        LEFT JOIN tb_user_role UserRole ON UserRole.userId = User.id
+        LEFT JOIN tb_role Role ON Role.id = UserRole.roleId
+    </sql>
+
+
+    <select id="findByUsername" parameterType="string" resultMap="ResultMapWithUser">
+        <include refid="SqlWithUserSelectAll"/>
+        <where>
+            username = #{username}
+        </where>
+    </select>
+
+    <delete id="deleteUserAssociatedRoles">
+        DELETE FROM tb_user_role UserRole WHERE UserRole.userId = #{userId}
+    </delete>
+</mapper>

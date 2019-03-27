@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>Fastjee</artifactId>
+        <groupId>com.fastjee</groupId>
+        <version>${fastjee.version}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fastjee-usercenter</artifactId>
+    <version>${fastjee.version}</version>
+    <description>用户中心 (UC)</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fastjee</groupId>
+            <artifactId>fastjee-common</artifactId>
+            <version>${fastjee.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fastjee</groupId>
+            <artifactId>fastjee-db-mybatis</artifactId>
+            <version>${fastjee.version}</version>
+        </dependency>
+    </dependencies>
+</project>

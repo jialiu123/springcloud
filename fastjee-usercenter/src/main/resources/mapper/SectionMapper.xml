@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2018 吴汶泽(wenzewoo@gmail.com)
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastjee.usercenter.mapper.SectionMapper">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <resultMap id="ResultMapWithSection" type="com.fastjee.common.entity.Section">
+        <id column="Section_id" property="id" />
+        <result column="Section_code" property="code" /><!--//.部门编号-->
+        <result column="Section_name" property="name" /><!--//.部门名称-->
+        <result column="Section_priority" property="priority" /><!--//.优先级-->
+        <result column="Section_parentId" property="parentId" /><!--//.父级ID-->
+        <result column="Section_createAt" property="createAt" />
+        <result column="Section_createDate" property="createDate" />
+        <result column="Section_modifyAt" property="modifyAt" />
+        <result column="Section_modifyDate" property="modifyDate" />
+    </resultMap>
+    <sql id="SqlWithSectionSelectAll">
+        SELECT
+            Section.id AS Section_id,
+            Section.code AS Section_code,
+            Section.name AS Section_name,
+            Section.priority AS Section_priority,
+            Section.parentId AS Section_parentId,
+            Section.createAt AS Section_createAt,
+            Section.createDate AS Section_createDate,
+            Section.modifyAt AS Section_modifyAt,
+            Section.modifyDate AS Section_modifyDate
+        FROM tb_section AS Section
+    </sql>
+</mapper>

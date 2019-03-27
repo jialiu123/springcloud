@@ -1,0 +1,32 @@
+server:
+  port: 5000
+spring:
+  application:
+    name: fastjee-registration
+  profiles:
+    active: dev
+
+# 标识该服务为注册中心
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+        defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  # 关闭eureka自我保护机制
+  server:
+    enableSelfPreservation: false
+    evictionIntervalTimerInMs: 4000 # 清理间隔（单位毫秒，默认是60*1000）
+
+# Eureka 安全认证
+security:
+  basic:
+    enabled: true
+  user:
+    name: fastjee
+    password: 123456
+
+logging:
+  config: classpath:logback.xml

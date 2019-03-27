@@ -1,0 +1,33 @@
+server:
+  port: 5001
+spring:
+  application:
+    name: fastjee-config
+  profiles:
+    active: dev
+  # 配置中心git仓库
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          uri: http://git.mo8tech.net/liujia/cloudconfig.git
+          searchPaths:
+          username:
+          password:
+
+# 将配置中心注册到eureka实现高可用
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    # 更改eureka更新频率, 关闭eureka的自我保护机制.
+    leaseRenewalIntervalInSeconds: 5 # 租期更新时间间隔(默认30秒)
+    leaseExpirationDurationInSeconds: 20 # 租期到期时间(默认90秒)
+  client:
+    serviceUrl:
+      defaultZone: http://fastjee:123456@127.0.0.1:5000/eureka/
+    healthcheck:
+      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+
+logging:
+  config: classpath:logback.xml
